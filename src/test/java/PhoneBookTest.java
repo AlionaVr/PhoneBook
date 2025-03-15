@@ -44,4 +44,15 @@ public class PhoneBookTest {
         //assert
         assertEquals("Boris", actualName);
     }
+
+    @Test
+    void whenFindByNameReturnCorrectNumber() {
+        //arrange
+        phoneBook.add("Aliona", "+375(33)862-31-55");
+        phoneBook.add("Boris", "+375(33)862-31-56");
+        //act
+        String actualName = phoneBook.findByName("Boris");
+        //assert
+        assertEquals("+375(33)862-31-56", actualName);
+    }
 }
