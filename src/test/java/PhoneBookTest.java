@@ -2,7 +2,10 @@ import org.example.PhoneBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PhoneBookTest {
     PhoneBook phoneBook;
@@ -54,5 +57,29 @@ public class PhoneBookTest {
         String actualName = phoneBook.findByName("Boris");
         //assert
         assertEquals("+375(33)862-31-56", actualName);
+    }
+
+    @Test
+    void whenPrintAllNamesShouldPrintNamesAlphabetically() {
+        //arrange
+        phoneBook.add("Aliona", "+375(33)862-31-55");
+        phoneBook.add("Alice", "+375(33)862-31-56");
+        phoneBook.add("Bob", "+375(33)862-31-45");
+
+        List<String> expectedNames = Arrays.asList("Alice", "Aliona", "Bob");
+        //act
+        List<String> names = phoneBook.printAllNames();
+        //assert
+        assertEquals(3, names.size());
+        assertEquals(expectedNames, names);
+    }
+
+    @Test
+    void whenPrintAllNamesOfEmptyPhoneBookReturnEmptyList() {
+        //act
+        List<String> names = phoneBook.printAllNames();
+        //assert
+        assertNotNull(names);
+        assertTrue(names.isEmpty());
     }
 }
