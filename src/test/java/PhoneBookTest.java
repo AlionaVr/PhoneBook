@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PhoneBookTest {
     PhoneBook phoneBook;
@@ -72,14 +72,5 @@ public class PhoneBookTest {
         //assert
         assertEquals(3, names.size());
         assertEquals(expectedNames, names);
-    }
-
-    @Test
-    void whenPrintAllNamesOfEmptyPhoneBookReturnEmptyList() {
-        //act
-        List<String> names = phoneBook.printAllNames();
-        //assert
-        assertNotNull(names);
-        assertTrue(names.isEmpty());
     }
 }

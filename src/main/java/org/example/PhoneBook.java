@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
@@ -25,6 +26,10 @@ public class PhoneBook {
     }
 
     public List<String> printAllNames() {
-        return null;
+        List<String> names = new ArrayList<>(nameToNumber.keySet());
+        for (String name : names) {
+            System.out.println(name);
+        }
+        return names;
     }
 }
