@@ -1,14 +1,20 @@
 import org.example.PhoneBook;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PhoneBookTest {
+    PhoneBook phoneBook;
+
+    @BeforeEach
+    void setUp() {
+        phoneBook = new PhoneBook();
+    }
 
     @Test
     void whenAddContactReturnCorrectCountOfContacts() {
         //arrange
-        PhoneBook phoneBook = new PhoneBook();
         int expectedContactCount = 1;
         //act
         int actualContactCount = phoneBook.add("Aliona", "+375(33)862-31-55");
@@ -19,11 +25,11 @@ public class PhoneBookTest {
     @Test
     void whenAddDuplicatedContactReturnUnchangedCountOfContacts() {
         //arrange
-        PhoneBook phoneBook = new PhoneBook();
         int expectedContactCount = 1;
         //act
         phoneBook.add("Aliona", "+375(33)862-31-55");
-        int actualContactCount = phoneBook.add("Aliona", "+375(33)862-31-55");
+        phoneBook.add("Aliona", "+375(33)862-31-56");
+        int actualContactCount = phoneBook.add("Boris", "+375(33)862-31-55");
         //assert
         assertEquals(expectedContactCount, actualContactCount);
     }
@@ -31,7 +37,6 @@ public class PhoneBookTest {
     @Test
     void whenFindByNumberReturnCorrectNameOfContact() {
         //arrange
-        PhoneBook phoneBook = new PhoneBook();
         phoneBook.add("Aliona", "+375(33)862-31-55");
         phoneBook.add("Boris", "+375(33)862-31-56");
         //act
