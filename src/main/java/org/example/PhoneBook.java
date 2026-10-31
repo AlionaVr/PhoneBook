@@ -10,6 +10,12 @@ public class PhoneBook {
     private final HashMap<String, String> numberToName = new HashMap<>();
 
     public int add(String name, String number) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Contact name must not be blank.");
+        }
+        if (number == null || number.isBlank()) {
+            throw new IllegalArgumentException("Phone number must not be blank.");
+        }
         if (!nameToNumber.containsKey(name) && !numberToName.containsKey(number)) {
             nameToNumber.put(name, number);
             numberToName.put(number, name);

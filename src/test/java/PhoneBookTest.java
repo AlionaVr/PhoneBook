@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PhoneBookTest {
     PhoneBook phoneBook;
@@ -23,6 +25,28 @@ public class PhoneBookTest {
         int actualContactCount = phoneBook.add("Aliona", "+375(33)862-31-55");
         //assert
         assertEquals(expectedContactCount, actualContactCount);
+    }
+
+    @Test
+    void whenNameIsMissingRejectContactWithoutReservingNumber() {
+        phoneBook.add("Aliona", "123");
+        for (String name : Arrays.asList(null, "", " ", "\t", "\n")) {
+            assertThrows(IllegalArgumentException.class, () -> phoneBook.add(name, "456"));
+            assertNull(phoneBook.findByNumber("456"));
+            assertEquals("123", phoneBook.findByName("Aliona"));
+        }
+        assertEquals(2, phoneBook.add("Boris", "456"));
+    }
+
+    @Test
+    void whenNumberIsMissingRejectContactWithoutReservingName() {
+        phoneBook.add("Aliona", "123");
+        for (String number : Arrays.asList(null, "", " ", "\t", "\n")) {
+            assertThrows(IllegalArgumentException.class, () -> phoneBook.add("Boris", number));
+            assertNull(phoneBook.findByName("Boris"));
+            assertEquals("Aliona", phoneBook.findByNumber("123"));
+        }
+        assertEquals(2, phoneBook.add("Boris", "456"));
     }
 
     @Test
